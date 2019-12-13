@@ -1,6 +1,8 @@
 package com.example.demo;
 
 
+import org.apache.commons.text.WordUtils;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,6 +18,7 @@ import java.util.Random;
 public class DataSourceRoutingService {
 
     private static final String GET_CITY_BY_NAME = "select name from city where name like ?";
+    private static final String VALIDATE_CITY = "select name from city where name = ?";
     private static final Random rand = new Random();
 
 
@@ -33,5 +36,11 @@ public class DataSourceRoutingService {
         }
         List<String> response = jdbcTemplate.queryForList(GET_CITY_BY_NAME, String.class, letter + '%');
         return response.get(rand.nextInt(response.size()));
+    }
+
+    @CacheEvict("city")
+    public Boolean validateCityExistence(String city){
+        List<String> response = jdbcTemplate.queryForList(VALIDATE_CITY, String.class, WordUtils.capitalize(city));
+        return !response.isEmpty();
     }
 }

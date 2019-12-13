@@ -17,8 +17,13 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping
-    public String printMyString(@RequestParam String letter) throws Exception {
+    @GetMapping("/get_city")
+    public String getNewCity(@RequestParam String letter) throws Exception {
         return service.getCityByFirstLetter(letter);
+    }
+
+    @GetMapping("/validate_city")
+    public Boolean checkCity(@RequestParam String city){
+        return service.validateCityExistence(city);
     }
 }

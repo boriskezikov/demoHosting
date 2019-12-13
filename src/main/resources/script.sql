@@ -1,19 +1,19 @@
 create table country(
-	id			bigint not null primary key,
-	name		character varying(128) not null,
-	crt_date	TIMESTAMP with time zone NOT NULL DEFAULT NOW());
-	
+                      id			bigint not null primary key,
+                      name		character varying(128) not null,
+                      crt_date	TIMESTAMP with time zone NOT NULL DEFAULT NOW());
+
 create table region(
-	id			bigint not null primary key,
-	country_id	bigint not null REFERENCES country (id),
-	name		character varying(128) not null,
-	crt_date	TIMESTAMP with time zone NOT NULL DEFAULT NOW());
-	
+                     id			bigint not null primary key,
+                     country_id	bigint not null REFERENCES country (id),
+                     name		character varying(128) not null,
+                     crt_date	TIMESTAMP with time zone NOT NULL DEFAULT NOW());
+
 create table city(
-	id			bigserial not null primary key,
-	region_id	bigint not null REFERENCES region (id),
-	name		character varying(128) not null,
-	crt_date	TIMESTAMP with time zone NOT NULL DEFAULT NOW());
+                   id			bigserial not null primary key,
+                   region_id	bigint not null REFERENCES region (id),
+                   name		character varying(128) not null,
+                   crt_date	TIMESTAMP with time zone NOT NULL DEFAULT NOW());
 
 insert into country(id, name) values (0, 'Россия');
 insert into country(id, name) values (1, 'Украина');
