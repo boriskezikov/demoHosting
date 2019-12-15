@@ -1,9 +1,7 @@
 package com.example.demo;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,5 +23,10 @@ public class Controller {
     @GetMapping("/validate_city")
     public Boolean checkCity(@RequestParam String city){
         return service.validateCityExistence(city);
+    }
+
+    @GetMapping("/health")
+    public Boolean getStatus(){
+        return true;
     }
 }
